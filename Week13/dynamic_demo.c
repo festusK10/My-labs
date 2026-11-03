@@ -1,0 +1,4 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct {int id;char name[30];double salary;} Employee;
+int main(void){size_t count=0,capacity=2;Employee *employees=malloc(capacity*sizeof *employees);if(!employees){perror("malloc");return 1;}while(1){Employee e;printf("ID (0 to stop): ");if(scanf("%d",&e.id)!=1)break;if(e.id==0)break;printf("Name (no spaces): ");if(scanf("%29s",e.name)!=1)break;printf("Salary: ");if(scanf("%lf",&e.salary)!=1)break;if(count==capacity){size_t next=capacity*2;Employee *bigger=realloc(employees,next*sizeof *employees);if(!bigger){puts("Out of memory");break;}employees=bigger;capacity=next;printf("Capacity increased to %zu\n",capacity);}employees[count++]=e;}printf("Count: %zu Capacity: %zu\n",count,capacity);for(size_t i=0;i<count;i++)printf("%d %s %.2f\n",employees[i].id,employees[i].name,employees[i].salary);free(employees);return 0;}
